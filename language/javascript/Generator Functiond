@@ -1,0 +1,57 @@
+# Generator Function
+
+## 1.简介
+
+Generator函数是ES6提供的一种异步编程方式，在语法上可以将Generator函数看成一个状态机，只有执行`next`方法才能从上一个转移到下一个状态，并执行之间的语句，返回的对象也是一个遍历器，可以将Generator Function看成一个遍历器生成函数
+
+Generator函数执行后会返回一个对象，实际的内容并未执行，需要调用产生的对象的`next`方法切换为下一个状态，
+
+```javascript
+function* generator() {
+    console.log('before')
+    yield 1;
+    console.log('center')
+    yield 'hello';
+    console.log('after')
+}
+const one = generator()
+console.log(one.next());
+// before
+// { value: 1, done: false }
+console.log(one.next()); 
+// center
+// { value: 'hello', done: false }
+console.log(one.next());
+// after
+// { value: undefined, done: true }
+```
+
+上面的例子产生的`generator`一共执行了三次
+
+第一次调用`next`方法执行到第一个`yield`语句，并返回`{ value: 1, done: false }`，其中返回值得`value`属性为`yield`的参数，`done`表示该generator是否已执行完毕
+
+第二次执行`next`方法执行到第二个`yield`语句，并返回`{ value: 'hello', done: false }`
+
+第三次执行函数中第二个`yield`语句后面剩下的语句并返回`{ value: undefined, done: true }`表示该generator函数已执行完毕
+
+```javascript
+function* helloWorldGenerator() {
+  yield 'hello';
+  return 'world';
+  yield 1234
+}
+const hw = helloWorldGenerator()
+hw.next() // { value: 'hello', done: false }
+hw.next() // { value: 'world', done: false }
+hw.next() // { value: undefined, done: true }
+```
+
+上面这个例子也执行了三次next，但是`return`语句之后的语句不会执行，执行到`return`语句就表示该generator函数已经执行完毕
+
+## 2.next的参数
+
+##
+
+##
+
+## 
